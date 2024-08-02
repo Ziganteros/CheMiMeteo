@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheMiMeteo</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Che mi meteo?</h1>
+        <p>Non sai cosa mettere?</p>
+        <p>Guarda il meteo e scegli cosa indossare...
+            e se ti manca qualcosa fai in tempo a prenderlo
+        </p>
+    </header>
+    <div class="content">
+        <h2>Check the Weather</h2>
+        <form action="/" method="POST">
+            <label for="city">Enter your city:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if forecast and city %}
+        <div class="forecast">
+            <h2>5-Day Weather Forecast for {{ city }}</h2>
+            <form action="/" method="POST" class="forecast-container">
+                <input type="hidden" name="city" value="{{ city }}">
+                {% for day in forecast %}
+                <button type="submit" name="day" value="{{ loop.index0 }}" class="forecast-day">
+                    <h3>{{ day.date }}</h3>
+                    <p>{{ day.temp }}°C</p>
+                    <p>{{ day.description }}</p>
+                    <img src="http://openweathermap.org/img/wn/{{ day.icon }}@2x.png" alt="{{ day.description }}">
+                </button>
+                {% endfor %}
+            </form>
+        </div>
+
+        {% if selected_day %}
+        <div class="clothing-suggestions">
+            <h3>Recommended Clothing for {{ selected_day.date }} ({{ selected_day.temp }}°C)</h3>
+            <ul>
+                {% for item in clothing_recommendations %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+    <footer>
+        &copy; 2024 Weather Forecast. All rights reserved.
+    </footer>
+</body>
+
+</html>
