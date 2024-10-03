@@ -57,11 +57,12 @@ form button:hover {
 
 .forecast-container {
     display: flex;
+    overflow-x: auto;
     justify-content: space-around;
-    flex-wrap: wrap;
 }
 
 .forecast-day {
+    flex: 0 0 200px;
     background-color: #7bf0ff;
     border: 1px solid #00796b;
     border-radius: 5px;
